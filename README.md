@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Twitter
 
 ### Starter project
@@ -7,7 +7,7 @@ The starter project can be found in the `starter-project` tag. Download and run 
 
 ### Notes
 https://paper.dropbox.com/doc/Twitter--ADuVCVvwop_njSNAbUU96Q2VAQ-g255BPX3K4X7G0reYOWCI
-=======
+
 # Project 3 - *Name of App Here*
 
 **Name of your app** is a basic twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
@@ -92,4 +92,4 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
->>>>>>> 717daba60afa8f64d0e3e4ae8aefc2bb9b42dfce
+
