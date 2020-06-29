@@ -27,7 +27,7 @@
                 NSLog(@"%@", text);
             }
         } else {
-            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
+            NSLog(@"😫😫😫 Error getting home timeline  : %@", error.localizedDescription);
         }
     }];
 }
