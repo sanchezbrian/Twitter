@@ -27,38 +27,38 @@
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    
+    [self fetchTweets];
     self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(fetchTweets) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
     
     // Get timeline
+//    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
+//        if (tweets) {
+//            NSLog(@"😎😎😎 Successfully loaded home timeline");
+//            self.tweets = tweets.mutableCopy;
+//            [self.tableView reloadData];
+//        } else {
+//            NSLog(@"😫😫😫 Error getting home timeline  : %@", error.localizedDescription);
+//        }
+//    }];
+}
+
+- (void)fetchTweets {
+
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
-            NSLog(@"😎😎😎 Successfully loaded home timeline");
             self.tweets = tweets.mutableCopy;
             [self.tableView reloadData];
         } else {
             NSLog(@"😫😫😫 Error getting home timeline  : %@", error.localizedDescription);
         }
     }];
-}
-
-- (void)beginRefresh:(UIRefreshControl *)refreshControl {
-
-    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
-        if (tweets) {
-            self.tweets = tweets.mutableCopy;
-        }
-    }];
 
            // Reload the tableView now that there is new data
-            [self.tableView reloadData];
 
            // Tell the refreshControl to stop spinning
-            [refreshControl endRefreshing];
-
-    
+    [self.refreshControl endRefreshing];
 }
 
 - (void)didReceiveMemoryWarning {
