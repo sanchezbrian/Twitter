@@ -26,6 +26,7 @@
             NSLog(@"Error composing Tweet: %@", error.localizedDescription);
         } else {
             NSLog(@"Compose Tweet Success!");
+            [self.delegate didTweet:tweet];
             [self dismissViewControllerAnimated:true completion:nil];
         }
     }];
@@ -43,5 +44,7 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+@synthesize delegate;
 
 @end
