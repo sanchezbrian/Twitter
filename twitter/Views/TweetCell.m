@@ -16,7 +16,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
 - (IBAction)didTapLike:(id)sender {
     if (self.likeButton.selected) {
@@ -50,6 +49,36 @@
     // TODO: Update the local tweet model
     // TODO: Update cell UI
     // TODO: Send a POST request to the POST favorites/create endpoint
+}
+- (IBAction)didTapRetweet:(id)sender {
+    if (self.retweetButton.selected) {
+        self.tweet.retweeted = NO;
+        self.tweet.retweetCount -= 1;
+        [self.retweetButton setSelected:NO];
+        [self.retweetButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.retweetCount] forState:UIControlStateNormal];
+        NSLog(@"%d", self.tweet.retweetCount);
+        [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+            if (error) {
+                NSLog(@"Error unretweeting tweet: %@", error.localizedDescription);
+            } else {
+                NSLog(@"Successfully unretweeting the following Tweet: %@", tweet.text);
+            }
+        }];
+        
+    } else {
+        self.tweet.retweeted = YES;
+        self.tweet.retweetCount += 1;
+        [self.retweetButton setSelected:YES];
+        [self.retweetButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.retweetCount] forState:UIControlStateSelected];
+        NSLog(@"%d", self.tweet.retweetCount);
+        [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+            if (error) {
+                NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
+            } else {
+                NSLog(@"Successfully retweeting the following Tweet: %@", tweet.text);
+            }
+        }];
+    }
 }
 - (void)setCellData:(Tweet *)tweet {
     self.tweet = tweet;

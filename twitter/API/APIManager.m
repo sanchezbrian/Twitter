@@ -107,4 +107,24 @@ static NSString * const consumerSecret = @"KMRAB3eKXcUgHsPGo6Yz304N8VachfdJi5v0C
         completion(nil, error);
     }];
 }
+
+- (void)retweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion {
+    NSString *urlString = [NSString stringWithFormat:@"https://api.twitter.com/1.1/statuses/retweet/%@.json", tweet.idStr];
+    [self POST:urlString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * _Nullable tweetDictionary) {
+        Tweet *tweet = [[Tweet alloc] initWithDictionary:tweetDictionary];
+        completion(tweet, nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(nil, error);
+    }];
+}
+
+- (void)unretweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion {
+    NSString *urlString = [NSString stringWithFormat:@"https://api.twitter.com/1.1/statuses/unretweet/%@.json", tweet.idStr];
+    [self POST:urlString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * _Nullable tweetDictionary) {
+        Tweet *tweet = [[Tweet alloc] initWithDictionary:tweetDictionary];
+        completion(tweet, nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(nil, error);
+    }];
+}
 @end

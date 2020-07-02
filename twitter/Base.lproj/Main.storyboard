@@ -122,6 +122,10 @@
                                                     <state key="normal" title="Retweet" image="retweet-icon">
                                                         <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
+                                                    <state key="selected" image="retweet-icon-green"/>
+                                                    <connections>
+                                                        <action selector="didTapRetweet:" destination="3DF-yU-r18" eventType="touchUpInside" id="A80-WI-OeD"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9HC-m2-425">
                                                     <rect key="frame" x="228" y="60" width="64" height="30"/>
@@ -172,7 +176,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="3Rb-qY-k0a" secondAttribute="trailing" constant="7" id="lhP-dJ-3Lt"/>
                                                 <constraint firstItem="efm-h4-OIm" firstAttribute="leading" secondItem="eey-Mp-WfI" secondAttribute="trailing" constant="7" id="mcI-25-ghN"/>
                                                 <constraint firstItem="3Rb-qY-k0a" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hOz-mP-qnr" secondAttribute="trailing" constant="100" id="mqu-WF-3KY"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="t3l-ad-Ch1" secondAttribute="bottom" constant="10" id="s4e-8Q-EoJ"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="t3l-ad-Ch1" secondAttribute="bottom" constant="20" id="s4e-8Q-EoJ"/>
                                                 <constraint firstItem="t3l-ad-Ch1" firstAttribute="top" secondItem="2Pm-3l-7E6" secondAttribute="top" id="wwv-d3-r8S"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="eey-Mp-WfI" secondAttribute="bottom" constant="30" id="yI2-Qf-G0v"/>
                                                 <constraint firstItem="3Rb-qY-k0a" firstAttribute="firstBaseline" secondItem="hOz-mP-qnr" secondAttribute="firstBaseline" id="zHr-qQ-cUV"/>
@@ -304,5 +308,6 @@
         <image name="profile-Icon" width="26" height="26"/>
         <image name="reply-icon" width="30" height="30"/>
         <image name="retweet-icon" width="30" height="30"/>
+        <image name="retweet-icon-green" width="30" height="30"/>
     </resources>
 </document>
