@@ -1,13 +1,4 @@
 
-# Twitter
-
-### Starter project
-The starter project can be found in the `starter-project` tag. Download and run `pod install`.
-
-
-### Notes
-https://paper.dropbox.com/doc/Twitter--ADuVCVvwop_njSNAbUU96Q2VAQ-g255BPX3K4X7G0reYOWCI
-
 # Project 3 - *Name of App Here*
 
 **Name of your app** is a basic twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
