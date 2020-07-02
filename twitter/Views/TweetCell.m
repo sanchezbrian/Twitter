@@ -101,7 +101,7 @@
     if (tweet.retweeted) {
         [self.retweetButton setSelected:YES];
     } else {
-        [self.retweetButton setSelected:YES];
+        [self.retweetButton setSelected:NO];
     }
 }
 
