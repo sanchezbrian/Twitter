@@ -78,6 +78,7 @@
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell" forIndexPath:indexPath];
     Tweet *tweet =self.tweets[indexPath.row];
     [cell setCellData:tweet];
+    [cell refreshData:tweet];
     return cell;
     
     

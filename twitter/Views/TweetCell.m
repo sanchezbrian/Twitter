@@ -92,13 +92,11 @@
     [self.profileView setImageWithURL:tweet.user.profileURL];
 }
 
-- (void)refreshData {
-    if (self.likeButton.selected) {
-        [self.likeButton setSelected:NO];
-        [self.likeButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] forState:UIControlStateNormal];
-    } else {
+- (void)refreshData:(Tweet *)tweet {
+    if (tweet.favorited) {
         [self.likeButton setSelected:YES];
-        [self.likeButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] forState:UIControlStateSelected];
+    } else {
+        [self.likeButton setSelected:NO];
     }
 }
 

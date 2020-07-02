@@ -191,6 +191,7 @@
                                             <outlet property="retweetButton" destination="bNA-V1-7Fy" id="qic-Xj-0Ni"/>
                                             <outlet property="tweetLabel" destination="PUf-LE-JYw" id="10X-kT-PV0"/>
                                             <outlet property="userNameLabel" destination="hOz-mP-qnr" id="8CP-UY-Hhy"/>
+                                            <segue destination="UOr-We-VhB" kind="show" identifier="details" id="Oab-nl-NHm"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -213,7 +214,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="edit-icon" id="iwv-nf-XeV">
                             <connections>
-                                <segue destination="CEQ-Bw-qBo" kind="presentation" id="hAx-bV-uq3"/>
+                                <segue destination="CEQ-Bw-qBo" kind="presentation" identifier="compose" id="hAx-bV-uq3"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -224,6 +225,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oQh-hN-GQg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1660" y="36.206896551724142"/>
+        </scene>
+        <!--Details View Controller-->
+        <scene sceneID="TdY-nd-r3H">
+            <objects>
+                <viewController id="UOr-We-VhB" customClass="DetailsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CH7-gA-mYg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Ceu-r3-kZg"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="K40-8e-bWO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JKm-SD-zCe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1655" y="738"/>
         </scene>
         <!--Compose View Controller-->
         <scene sceneID="zYG-98-5SA">
