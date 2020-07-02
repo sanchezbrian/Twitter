@@ -17,6 +17,14 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapUserProfile:)];
+    [self.profileView addGestureRecognizer:profileTapGestureRecognizer];
+    [self.profileView setUserInteractionEnabled:YES];
+}
+
+- (void)didTapUserProfile: (UITapGestureRecognizer *)sender {
+    [self.delegate tweetCell:self didTap:self.tweet.user];
+    
 }
 - (IBAction)didTapLike:(id)sender {
     if (self.likeButton.selected) {
