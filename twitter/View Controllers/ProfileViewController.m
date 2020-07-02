@@ -8,7 +8,10 @@
 
 #import "ProfileViewController.h"
 
-@interface ProfileViewController ()
+@interface ProfileViewController () <UIScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *tweets;
 
 @end
 
