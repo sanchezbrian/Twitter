@@ -9,6 +9,7 @@
 #import "Tweet.h"
 #import "User.h"
 
+
 @implementation Tweet
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
@@ -39,6 +40,7 @@
         NSDate* date = [formatter dateFromString:createdAtOriginalString];
         formatter.dateStyle = NSDateFormatterShortStyle;
         formatter.timeStyle = NSDateFormatterNoStyle;
+        self.date = date;
         self.createdAtString = [formatter stringFromDate:date];
         }
         return self;
