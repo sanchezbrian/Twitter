@@ -8,12 +8,68 @@
 
 #import "TweetCell.h"
 #import "Tweet.h"
+#import "APIManager.h"
+#import "UIImageView+AFNetworking.h"
+
 
 @implementation TweetCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+- (IBAction)didTapLike:(id)sender {
+    if (self.likeButton.selected) {
+        self.tweet.favorited = NO;
+        self.tweet.favoriteCount -= 1;
+        [self.likeButton setSelected:NO];
+        [self.likeButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] forState:UIControlStateNormal];
+        NSLog(@"%d", self.tweet.favoriteCount);
+        [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
+            if (error) {
+                NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
+            } else {
+                NSLog(@"Successfully unfavorited the following Tweet: %@", tweet.text);
+            }
+        }];
+        
+    } else {
+        self.tweet.favorited = YES;
+        self.tweet.favoriteCount += 1;
+        [self.likeButton setSelected:YES];
+        [self.likeButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] forState:UIControlStateSelected];
+        NSLog(@"%d", self.tweet.favoriteCount);
+        [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
+            if (error) {
+                NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+            } else {
+                NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
+            }
+        }];
+    }
+    // TODO: Update the local tweet model
+    // TODO: Update cell UI
+    // TODO: Send a POST request to the POST favorites/create endpoint
+}
+- (void)setCellData:(Tweet *)tweet {
+    self.tweet = tweet;
+    [self.likeButton setTitle:[NSString stringWithFormat:@"%d",tweet.favoriteCount] forState:UIControlStateNormal];
+    [self.retweetButton setTitle:[NSString stringWithFormat:@"%d",tweet.retweetCount] forState:UIControlStateNormal];
+    self.nameLabel.text = tweet.user.name;
+    self.userNameLabel.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
+    self.dateLabel.text = tweet.createdAtString;
+    self.tweetLabel.text = tweet.text;
+    [self.profileView setImageWithURL:tweet.user.profileURL];
+}
+
+- (void)refreshData {
+    if (self.likeButton.selected) {
+        [self.likeButton setSelected:NO];
+        [self.likeButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] forState:UIControlStateNormal];
+    } else {
+        [self.likeButton setSelected:YES];
+        [self.likeButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] forState:UIControlStateSelected];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
