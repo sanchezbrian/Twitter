@@ -18,11 +18,12 @@
 #import "DetailsViewController.h"
 #import "ProfileViewController.h"
 
-@interface TimelineViewController () <ComposeViewControllerDelegate, TweetCellDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface TimelineViewController () <ComposeViewControllerDelegate, TweetCellDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *tweets;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, assign) BOOL isMoreDataLoading;
 
 
 @end
@@ -51,7 +52,7 @@
 }
 
 - (void)fetchTweets {
-
+    self.isMoreDataLoading = NO;
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
             self.tweets = tweets.mutableCopy;
@@ -65,6 +66,18 @@
 
            // Tell the refreshControl to stop spinning
     [self.refreshControl endRefreshing];
+}
+
+- (void)fetchMoreTweets {
+    [[APIManager shared] loadMoreTweets:self.tweets[self.tweets.count - 1] completion:^(NSArray *tweets, NSError *error) {
+        if (tweets) {
+            NSLog(@"😎😎😎 Successfully loaded home timeline");
+            [self.tweets addObjectsFromArray:tweets];
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"😫😫😫 Error getting home timeline  : %@", error.localizedDescription);
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -100,6 +113,17 @@
     LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
     appDelegate.window.rootViewController = loginViewController;
     [[APIManager shared] logout];
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (!self.isMoreDataLoading) {
+        int scrollViewContentHeight = self.tableView.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
+        if (scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+            self.isMoreDataLoading = YES;
+            [self fetchMoreTweets];
+            self.isMoreDataLoading = NO;
+        }
+    }
 }
 
 

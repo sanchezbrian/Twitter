@@ -49,9 +49,9 @@ static NSString * const consumerSecret = @"KMRAB3eKXcUgHsPGo6Yz304N8VachfdJi5v0C
 }
 
 - (void)getHomeTimelineWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion {
-    
+    NSDictionary *dictionary = @{@"include_entities": @"true"};
     [self GET:@"1.1/statuses/home_timeline.json"
-   parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+   parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
        
        // Manually cache the tweets. If the request fails, restore from cache if possible.
        //NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tweetDictionaries];
@@ -73,6 +73,17 @@ static NSString * const consumerSecret = @"KMRAB3eKXcUgHsPGo6Yz304N8VachfdJi5v0C
        
        completion(nil, error);
    }];
+}
+
+- (void)loadMoreTweets:(Tweet *)lastTweet completion:(void (^)(NSArray *tweets, NSError *error))completion {
+    NSString *urlString = @"1.1/statuses/home_timeline.json";
+    NSDictionary *parameters = @{@"max_id": lastTweet.idStr};
+    [self GET:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+        NSMutableArray *tweets = [Tweet tweetsWithArray:tweetDictionaries];
+        completion(tweets, nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(nil, error);
+    }];
 }
 
 - (void)postStatusWithText:(NSString *)text completion:(void (^)(Tweet *, NSError *))completion {
